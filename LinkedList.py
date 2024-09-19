@@ -1,3 +1,4 @@
+from typing import Any
 from Node import Node
 
 
@@ -19,11 +20,35 @@ class LinkedList:
         self.length += 1
         return True
 
-    def __str__(self) -> str:
-        string = ""
+    def pop(self) -> Any | None:
+        if self.length == 0:
+            return None
+
         temp = self.head
-        while temp is not None:
-            string += f"{temp.value} "
+        pre = self.head
+
+        while temp.next is not None:
+            pre = temp
             temp = temp.next
 
-        return string
+        self.tail = pre
+        self.tail.next = None
+        self.length -= 1
+
+        if self.length == 0:
+            self.head = None
+            self.tail = None
+
+        return temp.value
+
+    def __str__(self) -> str:
+        if not self.head:
+            return "Empty list"
+
+        values = []
+        current_node = self.head
+        while current_node is not None:
+            values.append(str(current_node.value))
+            current_node = current_node.next
+
+        return " -> ".join(values)
