@@ -1,4 +1,3 @@
-from typing import Any
 from Node import Node
 
 
@@ -20,7 +19,7 @@ class LinkedList:
         self.length += 1
         return True
 
-    def pop(self) -> Any | None:
+    def pop(self) -> Node | None:
         if self.length == 0:
             return None
 
@@ -39,9 +38,9 @@ class LinkedList:
             self.head = None
             self.tail = None
 
-        return temp.value
+        return temp
 
-    def prepend(self, value):
+    def prepend(self, value) -> bool:
         new_node = Node(value)
         if self.length == 0:
             self.head = new_node
@@ -51,6 +50,84 @@ class LinkedList:
             self.head = new_node
             self.length += 1
         return True
+    
+    def pop_first(self) -> Node | None:
+        if self.length == 0:
+            return None
+        
+        temp = self.head
+        self.head = self.head.next
+        temp.next = None
+        self.length -= 1
+        if self.length == 0:
+            self.tail = None
+        
+        return temp
+    
+    def get(self, index) -> Node | None:
+        if index < 0 or index >= self.length:
+            return None
+        
+        temp = self.head
+        for _ in range(index):
+            temp = temp.next
+        
+        return temp
+    
+    def set_value(self, index, value) -> bool:
+        temp = self.get(index)
+        if temp:
+            temp.value = value
+            return True
+        return False
+
+    def insert(self, index, value) -> bool:
+        if index < 0 or index >= self.length:
+            return True
+        
+        if index == 0:
+            return self.prepend(value)
+        
+        if index == self.length:
+            return self.append(value)
+        
+        new_node = Node(value)
+        temp = self.get(index - 1)
+        new_node.next = temp.next
+        temp.next = new_node
+        self.length += 1
+        return True
+    
+    def remove(self, index) -> Node:
+        if index < 0 or index >= self.length:
+            return None
+        
+        if index == 0:
+            return self.pop_first()
+        
+        if index == self.length - 1:
+            return self.pop()
+        
+        prev = self.get(index - 1)
+        temp = prev.next
+        prev.next = temp.next
+        temp.next = None
+        self.length += 1
+        return temp
+    
+    def reverse(self) -> None: # imp interview qs
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+
+        before = None
+        after = temp.next
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
+
 
     def __str__(self) -> str:
         if not self.head:

@@ -2,8 +2,12 @@ from LinkedList import LinkedList
 
 ll = LinkedList(4)
 
-ll.pop()
+ll.append(5)
 
-ll.prepend(6)
+ll.append(6)
+
+print(ll)
+
+ll.reverse()
 
 print(ll)
