@@ -129,7 +129,9 @@ class LinkedList:
             temp.next = before
             before = temp
             temp = after
-
+    
+    def __len__(self) -> int:
+        return self.length
 
     def __str__(self) -> str:
         if not self.head:
