@@ -2,11 +2,13 @@ from Node import Node
 
 
 class LinkedList:
-    def __init__(self, value) -> None:
-        new_node = Node(value)
-        self.head = new_node
-        self.tail = new_node
-        self.length = 1
+    def __init__(self, *args) -> None:
+        self.head = None
+        self.tail = None
+        self.length = 0
+
+        for arg in args:
+            self.append(arg)
 
     def append(self, value) -> bool:
         new_node = Node(value)
