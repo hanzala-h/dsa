@@ -85,7 +85,7 @@ class LinkedList:
 
     def insert(self, index, value) -> bool:
         if index < 0 or index >= self.length:
-            return True
+            return False
         
         if index == 0:
             return self.prepend(value)
