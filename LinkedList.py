@@ -132,6 +132,19 @@ class LinkedList:
     
     def __len__(self) -> int:
         return self.length
+    
+    def __repr__(self) -> str:
+        if self._is_empty():
+            return f"{self.__class__.__name__}()"
+    
+        values = []
+        current: Node = self.head
+        while current is not None:
+            values.append(repr(current.value))
+            current = current.next
+
+        values_repr = ", ".join(values)
+        return f"{self.__class__.__name__}({values_repr})"
 
     def __str__(self) -> str:
         if not self.head:
